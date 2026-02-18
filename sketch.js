@@ -1,7 +1,5 @@
-/* The compositions of two reflections are rotations.
- * The compositions of two rotations of different centers are rotations of ...
- * The compositions of two glide reflection are translation 
- * version0.21 2025/06/15
+/* Application that emulates the compositions of two reflections are rotations, etc.
+ * version 0.3, 2026/02/18, snow00two, 
  * \href{https://creativecommons.org/licenses/by-nc-nd/4.0/}{\ccbyncsa}
  */ 
 const WIDTH_CANVAS = 720 * 3/2  ; //=1080
