@@ -2,21 +2,21 @@
  * version 0.3, 2026/02/18, snow00two, 
  * \href{https://creativecommons.org/licenses/by-nc-nd/4.0/}{\ccbyncsa}
  */ 
-const WIDTH_CANVAS = 720 * 3/2  ; //=1080
-const HEIGHT_CANVAS = 405 * 3/2 ; //=607.5
-const CENTER_X = WIDTH_CANVAS/2 ;
-const CENTER_Y = HEIGHT_CANVAS/2 ;
+let widthCanvas = 720 * 3/2  ; //=1080
+let heightCanvas = 405 * 3/2 ; //=607.5
+let centerX = widthCanvas/2 ;
+let centerY = heightCanvas/2 ;
 const BACK_COLOR = [200, 220, 200] ;
-const RADIUS_LARGE = WIDTH_CANVAS ;
+let radiusLarge = widthCanvas ;
 const AUTO_SPEED = 0.005 ;
 const EPSILON = 5;
-const RADIUS_AUT_1 = 250 ;
-const RADIUS_AUT_2 = 150;
-const RADIUS_AUT_3 = 100;
-const RADIUS_AUT_4 = 30;
-const SHIFT_GR = 100 ;
-const DIV = 5;
-const DIV_1 = 10;
+let radiusAut1 = 250 ;
+let radiusAut2 = 150;
+let radiusAut3 = 100;
+let radiusAut4 = 30;
+let SHIFT_GR = 100 ;
+let div0 = 5;
+let div1 = 10;
 const FIRST_PERIOD = 2000;//period
 const SECOND_PERIOD = FIRST_PERIOD + 2600;
 const THIRD_PERIOD = SECOND_PERIOD + 2600;
@@ -37,6 +37,15 @@ const MAX_ROTATE = MAX_REFRECT + FIRST_PERIOD;
 const MAX_GLID_REF = MAX_ROTATE + THIRD_PERIOD;
 
 function setup() {
+  widthCanvas = windowWidth ;
+  heightCanvas = windowHeight ;
+  centerX = windowWidth / 2;
+  centerY = windowHeight / 2;
+  scaleCanvas = min(widthCanvas, heightCanvas);
+  radiusAut1 = scaleCanvas / 2.5;
+  radiusAut2 = scaleCanvas / 4;
+  radiusAut3 = scaleCanvas / 6;
+  radiusAut4 = scaleCanvas /20;
   selectComp = createSelect() ;
   selectComp.option('automatic', 'auto');
   selectComp.option('parallel reflections', 'reflections0') ; /* compositions of two reflections with respect to parallel line */
@@ -67,7 +76,7 @@ function setup() {
   tilteRatioS = createSlider(0.1, 100-0.1, 100 * 2.5/5) ; /* percent of angle to PI(1-tilteRatioP/100) */
   tilteRatioS.position(930, 10) ;
 
-  createCanvas(WIDTH_CANVAS, HEIGHT_CANVAS) ;
+  createCanvas(widthCanvas, heightCanvas) ;
   background(BACK_COLOR) ;
 
   textSize(16);//We need to set the fontsize here for using in the draw functin.
@@ -181,37 +190,37 @@ function draw() {
 
   let radiusAut;
   if (modeSelect === 'reflections') {
-    radiusAut = RADIUS_AUT_1;
+    radiusAut = radiusAut1;
   } else if (modeSelect === 'rotations' || modeSelect === 'glideRef'){
-    radiusAut = RADIUS_AUT_2;
+    radiusAut = radiusAut2;
   } else if (modeSelect === 'reflections0') {
-    radiusAut = RADIUS_AUT_3;
+    radiusAut = radiusAut3;
   }
 
   if (selectMode.value() === 'auto') {
-    xX = CENTER_X + radiusAut * cos(AUTO_SPEED * i) ;
-    xY = CENTER_Y - radiusAut * sin(AUTO_SPEED * i) ;
+    xX = centerX + radiusAut * cos(AUTO_SPEED * i) ;
+    xY = centerY - radiusAut * sin(AUTO_SPEED * i) ;
     i = freezingFrame(switchState,i);//i=i++ ; or i = i;
   } else if ( selectMode.value() === 'mouse' ) {
-    if ( mouseX >= 0 && mouseX <= WIDTH_CANVAS &&  mouseY >= 0 && mouseY <=HEIGHT_CANVAS ){
+    if ( mouseX >= 0 && mouseX <= widthCanvas &&  mouseY >= 0 && mouseY <=heightCanvas ){
       xX = mouseX ;
       xY = mouseY ;
     }
   }
 
-  let xPX = xX + RADIUS_AUT_4 * cos(AUTO_SPEED * i /2);
-  let xPY = xY + RADIUS_AUT_4 * sin(AUTO_SPEED * i /2);
-  let xDX = xX - RADIUS_AUT_4 * cos(AUTO_SPEED * i /2);
-  let xDY = xY - RADIUS_AUT_4 * sin(AUTO_SPEED * i /2);
+  let xPX = xX + radiusAut4 * cos(AUTO_SPEED * i /2);
+  let xPY = xY + radiusAut4 * sin(AUTO_SPEED * i /2);
+  let xDX = xX - radiusAut4 * cos(AUTO_SPEED * i /2);
+  let xDY = xY - radiusAut4 * sin(AUTO_SPEED * i /2);
   
   if (modeSelect === 'reflections0'){
-    let halfWidth = HEIGHT_CANVAS/DIV_1;
-    pqX = WIDTH_CANVAS;
-    pqY = CENTER_Y - halfWidth;
+    let halfWidth = heightCanvas/div1;
+    pqX = widthCanvas;
+    pqY = centerY - halfWidth;
     qpX = 0;
     qpY = pqY;
     p1q1X = pqX;
-    p1q1Y = CENTER_Y + halfWidth;
+    p1q1Y = centerY + halfWidth;
     q1p1X = qpX;
     q1p1Y = p1q1Y;
     let p2q2X = pqX;
@@ -369,20 +378,20 @@ function draw() {
     stroke('black'); 
   } else if (modeSelect === 'reflections'){
     angleP = PI * tilteRatioP.value()/100 ;
-    pX = CENTER_X;
-    pY = CENTER_Y;
-    qX = pX + RADIUS_AUT_1;
+    pX = centerX;
+    pY = centerY;
+    qX = pX + radiusAut1;
     qY = pY;
-    rX = pX + RADIUS_AUT_1 * cos(angleP) ;
-    rY = pY - RADIUS_AUT_1 * sin(angleP) ; 
-    pqX = qX + 3 * RADIUS_LARGE;
+    rX = pX + radiusAut1 * cos(angleP) ;
+    rY = pY - radiusAut1 * sin(angleP) ; 
+    pqX = qX + 3 * radiusLarge;
     pqY = qY ;
     qpX = 0 ;
     qpY = qY ;
-    prX = pX + RADIUS_LARGE * cos(angleP) ;
-    prY = pY - RADIUS_LARGE * sin(angleP) ; 
-    rpX = pX - RADIUS_LARGE * cos(angleP) ;
-    rpY = pY + RADIUS_LARGE * sin(angleP) ;
+    prX = pX + radiusLarge * cos(angleP) ;
+    prY = pY - radiusLarge * sin(angleP) ; 
+    rpX = pX - radiusLarge * cos(angleP) ;
+    rpY = pY + radiusLarge * sin(angleP) ;
   
     strokeWeight(2) ;
     line(pqX, pqY, qpX, qpY);
@@ -434,29 +443,29 @@ function draw() {
 
     p0X = 0;
     p0Y = 0;
-    q0X = p0X + RADIUS_AUT_2 * (cos(angleP) - sin(angleP)/tan(angleP + angleS) );// + =>  - 
+    q0X = p0X + radiusAut2 * (cos(angleP) - sin(angleP)/tan(angleP + angleS) );// + =>  - 
     q0Y = p0Y;
-    r0X = p0X + RADIUS_AUT_2 * cos(angleP) ;
-    r0Y = p0Y - RADIUS_AUT_2 * sin(angleP) ; 
+    r0X = p0X + radiusAut2 * cos(angleP) ;
+    r0Y = p0Y - radiusAut2 * sin(angleP) ; 
     pqr0X =(p0X + q0X +r0X)/3;
     pqr0Y =(p0Y + q0Y +r0Y)/3;
 
     let D = max(abs(q0X-p0X), abs(q0Y-p0Y),abs(r0X-p0X),abs(r0Y-p0Y), abs(q0X-r0X),abs(q0Y-r0Y));
-    let scaleF = 2*RADIUS_AUT_2/D;
-    pX = CENTER_X +scaleF*(p0X-pqr0X);
-    pY = CENTER_Y + scaleF*(p0Y-pqr0Y);
-    qX = CENTER_X +scaleF*(q0X-pqr0X);
-    qY = CENTER_Y + scaleF*(q0Y-pqr0Y);                                          //since y axis is the inverse direction
-    rX = CENTER_X +scaleF*(r0X-pqr0X);
-    rY = CENTER_Y + scaleF*(r0Y-pqr0Y);
-    pqX = qX + 3 * WIDTH_CANVAS;
+    let scaleF = 2*radiusAut2/D;
+    pX = centerX +scaleF*(p0X-pqr0X);
+    pY = centerY + scaleF*(p0Y-pqr0Y);
+    qX = centerX +scaleF*(q0X-pqr0X);
+    qY = centerY + scaleF*(q0Y-pqr0Y);                                          //since y axis is the inverse direction
+    rX = centerX +scaleF*(r0X-pqr0X);
+    rY = centerY + scaleF*(r0Y-pqr0Y);
+    pqX = qX + 3 * widthCanvas;
     pqY = qY ;
     qpX = 0 ;
     qpY = qY ;
-    prX = pX +  3 * WIDTH_CANVAS * cos(angleP) ;
-    prY = pY -  3 * WIDTH_CANVAS * sin(angleP) ; 
-    rpX = pX -  3 * WIDTH_CANVAS * cos(angleP) ;
-    rpY = pY +  3 * WIDTH_CANVAS * sin(angleP) ;
+    prX = pX +  3 * widthCanvas * cos(angleP) ;
+    prY = pY -  3 * widthCanvas * sin(angleP) ; 
+    rpX = pX -  3 * widthCanvas * cos(angleP) ;
+    rpY = pY +  3 * widthCanvas * sin(angleP) ;
 
     strokeWeight(2) ;
     line(pqX, pqY, qpX, qpY);
@@ -464,8 +473,8 @@ function draw() {
 
     let d = dist(qX, qY, rX, rY);
     if (d > EPSILON ){
-      let replaceX =  3 * WIDTH_CANVAS * (rX - qX)/d;
-      let replaceY =  3 * WIDTH_CANVAS * (rY - qY)/d; 
+      let replaceX =  3 * widthCanvas * (rX - qX)/d;
+      let replaceY =  3 * widthCanvas * (rY - qY)/d; 
       rqX = qX + replaceX;
       rqY = qY + replaceY;
       qrX = qX - replaceX;
@@ -516,8 +525,8 @@ function draw() {
     strokeWeight(1);
     stroke('black'); 
   } else if (modeSelect === 'glideRef') {
-    pqX = WIDTH_CANVAS;
-    pqY = CENTER_Y;
+    pqX = widthCanvas;
+    pqY = centerY;
     qpX = 0;
     qpY = pqY;
     strokeWeight(2) ;
@@ -742,8 +751,8 @@ function glideRef (xXcd, xYcd, pXcd, pYcd, qXcd, qYcd) {
   let mxx1X = (xXcd + x1X)/2;
   let mxx1Y = (xYcd + x1Y)/2;
 
-  let dispX = (qXcd - pXcd)/DIV;
-  let dispY = (qYcd - pYcd)/DIV;
+  let dispX = (qXcd - pXcd)/div0;
+  let dispY = (qYcd - pYcd)/div0;
   let gxx1X = mxx1X + dispX; // g.=gride
   let gxx1Y = mxx1Y + dispY;
   let gx1X = x1X + dispX;
