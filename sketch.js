@@ -161,9 +161,9 @@ function draw() {
   let qrY ; 
   let rqX ;
   let rqY ; 
-  const NUM_FLICK_1 = 1;
-  const NUM_FLICK_2 = 2;
-  const NUM_FLICK_3 = 3;
+  let numFlick1 = 1;
+  let numFlick2 = 2;
+  let numFlick3 = 3;
   let angleP;
   let angleS;
   let xX ;
@@ -295,10 +295,10 @@ function draw() {
 
     if (periodState === 0) {
       strokeWeight(1) ;
-      drawRef(xPX - smallShift, xPY, xPM1X - smallShift, xPM1Y, NUM_FLICK_2);
-      drawRef(xDX - smallShift, xDY, xDM1X - smallShift, xDM1Y, NUM_FLICK_3);
-      lineFlickMark(xPX, xPY, xDX, xDY, NUM_FLICK_1);
-      lineFlickMark(xPM1X, xPM1Y, xDM1X, xDM1Y, NUM_FLICK_1);
+      drawRef(xPX - smallShift, xPY, xPM1X - smallShift, xPM1Y, numFlick2);
+      drawRef(xDX - smallShift, xDY, xDM1X - smallShift, xDM1Y, numFlick3);
+      lineFlickMark(xPX, xPY, xDX, xDY, numFlick1);
+      lineFlickMark(xPM1X, xPM1Y, xDM1X, xDM1Y, numFlick1);
 
       strokeWeight(12);
       stroke('black'); 
@@ -310,18 +310,18 @@ function draw() {
       point(xDM1X, xDM1Y);
 
     } else if  (periodState === 1) {
-      drawRef(xPM1X - smallShift, xPM1Y, xPX - smallShift, xPY, NUM_FLICK_2);
-      drawRef(xDM1X - smallShift, xDM1Y, xDX - smallShift, xDY, NUM_FLICK_3);
-      drawRef(xP1X + smallShift, xP1Y, xPX + smallShift, xPY, NUM_FLICK_2);
-      drawRef(xD1X + smallShift, xD1Y, xDX + smallShift, xDY, NUM_FLICK_3);
+      drawRef(xPM1X - smallShift, xPM1Y, xPX - smallShift, xPY, numFlick2);
+      drawRef(xDM1X - smallShift, xDM1Y, xDX - smallShift, xDY, numFlick3);
+      drawRef(xP1X + smallShift, xP1Y, xPX + smallShift, xPY, numFlick2);
+      drawRef(xD1X + smallShift, xD1Y, xDX + smallShift, xDY, numFlick3);
 
       strokeWeight(2) ;
       line(p1q1X, p1q1Y, q1p1X, q1p1Y);
 
       strokeWeight(1) ;
-      lineFlickMark(xPX, xPY, xDX, xDY,NUM_FLICK_1);
-      lineFlickMark(xPM1X, xPM1Y, xDM1X, xDM1Y,NUM_FLICK_1);
-      lineFlickMark(xP1X, xP1Y, xD1X, xD1Y,NUM_FLICK_1);
+      lineFlickMark(xPX, xPY, xDX, xDY,numFlick1);
+      lineFlickMark(xPM1X, xPM1Y, xDM1X, xDM1Y,numFlick1);
+      lineFlickMark(xP1X, xP1Y, xD1X, xD1Y,numFlick1);
 
       strokeWeight(12);
       stroke('black'); 
@@ -341,15 +341,15 @@ function draw() {
       line(pM1qM1X, pM1qM1Y, qM1pM1X, qM1pM1Y);
       strokeWeight(1) ;
 
-      lineFlickMark(xPX, xPY, xDX, xDY, NUM_FLICK_1);
-      lineFlickMark(xP1X, xP1Y, xD1X, xD1Y, NUM_FLICK_1);
-      lineFlickMark(xP2X, xP2Y, xD2X, xD2Y, NUM_FLICK_1);
-      lineFlickMark(xP3X, xP3Y, xD3X, xD3Y, NUM_FLICK_1);
-      lineFlickMark(xP4X, xP4Y, xD4X, xD4Y, NUM_FLICK_1);
-      lineFlickMark(xPM1X, xPM1Y, xDM1X, xDM1Y, NUM_FLICK_1);
-      lineFlickMark(xPM2X, xPM2Y, xDM2X, xDM2Y, NUM_FLICK_1);
-      lineFlickMark(xPM3X, xPM3Y, xDM3X, xDM3Y, NUM_FLICK_1);
-      lineFlickMark(xPM4X, xPM4Y, xDM4X, xDM4Y, NUM_FLICK_1);
+      lineFlickMark(xPX, xPY, xDX, xDY, numFlick1);
+      lineFlickMark(xP1X, xP1Y, xD1X, xD1Y, numFlick1);
+      lineFlickMark(xP2X, xP2Y, xD2X, xD2Y, numFlick1);
+      lineFlickMark(xP3X, xP3Y, xD3X, xD3Y, numFlick1);
+      lineFlickMark(xP4X, xP4Y, xD4X, xD4Y, numFlick1);
+      lineFlickMark(xPM1X, xPM1Y, xDM1X, xDM1Y, numFlick1);
+      lineFlickMark(xPM2X, xPM2Y, xDM2X, xDM2Y, numFlick1);
+      lineFlickMark(xPM3X, xPM3Y, xDM3X, xDM3Y, numFlick1);
+      lineFlickMark(xPM4X, xPM4Y, xDM4X, xDM4Y, numFlick1);
 
       strokeWeight(12);
       stroke('black'); 
@@ -486,13 +486,13 @@ function draw() {
 
     if (periodState === 0 || periodState === 1) {
       [x1X, x1Y] = refPoint(xX, xY, pX, pY, qX, qY);
-      drawRef(xX, xY, x1X, x1Y, NUM_FLICK_1);
+      drawRef(xX, xY, x1X, x1Y, numFlick1);
 
       [xdPX, xdPY] = refPoint(x1X, x1Y,pX, pY, rX, rY)
-      drawRef(x1X, x1Y, xdPX, xdPY, NUM_FLICK_2);
+      drawRef(x1X, x1Y, xdPX, xdPY, numFlick2);
 
       [xtPX, xtPY] = refPoint(x1X, x1Y, qX, qY, rX, rY)
-      drawRef(x1X, x1Y, xtPX, xtPY, NUM_FLICK_3);
+      drawRef(x1X, x1Y, xtPX, xtPY, numFlick3);
 
       strokeWeight(5) ;
       line(pX, pY, x1X, x1Y);
@@ -642,11 +642,11 @@ function draw() {
     [mDM4X, mDM4Y, mDM5X, mDM5Y, gDM5X, gDM5Y] = glideRef(gDM4X, gDM4Y, qpX, qpY, pqX, pqY);//another direction
     
     if (periodState === 0) {
-      drawGridRef (xPX, xPY, mPX, mPY, mP1X, mP1Y, gP1X, gP1Y, NUM_FLICK_2);
-      drawGridRef (xDX, xDY, mDX, mDY, mD1X, mD1Y, gD1X, gD1Y, NUM_FLICK_3);
+      drawGridRef (xPX, xPY, mPX, mPY, mP1X, mP1Y, gP1X, gP1Y, numFlick2);
+      drawGridRef (xDX, xDY, mDX, mDY, mD1X, mD1Y, gD1X, gD1Y, numFlick3);
 
-      lineFlickMark(xPX, xPY,xDX, xDY, NUM_FLICK_1);
-      lineFlickMark(gP1X, gP1Y, gD1X, gD1Y, NUM_FLICK_1);
+      lineFlickMark(xPX, xPY,xDX, xDY, numFlick1);
+      lineFlickMark(gP1X, gP1Y, gD1X, gD1Y, numFlick1);
 
       strokeWeight(12);
       stroke('black'); 
@@ -658,14 +658,14 @@ function draw() {
       // stroke('red'); 
       // point(xdPX, xdPY);
     } else if (periodState === 1) {
-      drawGridRef (xPX, xPY, mPX, mPY, mP1X, mP1Y, gP1X, gP1Y, NUM_FLICK_2);
-      drawGridRef (xDX, xDY, mDX, mDY, mD1X, mD1Y, gD1X, gD1Y, NUM_FLICK_3);
-      drawGridRef (xPX, xPY, mPX, mPY, mPM1X, mPM1Y, gPM1X, gPM1Y, NUM_FLICK_2);
-      drawGridRef (xDX, xDY, mDMX, mDMY, mDM1X, mDM1Y, gDM1X, gDM1Y, NUM_FLICK_3);
+      drawGridRef (xPX, xPY, mPX, mPY, mP1X, mP1Y, gP1X, gP1Y, numFlick2);
+      drawGridRef (xDX, xDY, mDX, mDY, mD1X, mD1Y, gD1X, gD1Y, numFlick3);
+      drawGridRef (xPX, xPY, mPX, mPY, mPM1X, mPM1Y, gPM1X, gPM1Y, numFlick2);
+      drawGridRef (xDX, xDY, mDMX, mDMY, mDM1X, mDM1Y, gDM1X, gDM1Y, numFlick3);
 
-      lineFlickMark(xPX, xPY, xDX, xDY, NUM_FLICK_1);
-      lineFlickMark(gP1X, gP1Y, gD1X, gD1Y, NUM_FLICK_1);
-      lineFlickMark(gPM1X, gPM1Y, gDM1X, gDM1Y, NUM_FLICK_1);
+      lineFlickMark(xPX, xPY, xDX, xDY, numFlick1);
+      lineFlickMark(gP1X, gP1Y, gD1X, gD1Y, numFlick1);
+      lineFlickMark(gPM1X, gPM1Y, gDM1X, gDM1Y, numFlick1);
 
       strokeWeight(12);
       stroke('black'); 
@@ -677,18 +677,18 @@ function draw() {
       point(gD1X, gD1Y);
       point(gDM1X, gDM1Y);
     } else if (periodState === 2) {
-      lineFlickMark(xPX, xPY, xDX, xDY, NUM_FLICK_1);
-      lineFlickMark(gP1X, gP1Y, gD1X, gD1Y, NUM_FLICK_1);
-      lineFlickMark(gP2X, gP2Y, gD2X, gD2Y, NUM_FLICK_1);
-      lineFlickMark(gP3X, gP3Y, gD3X, gD3Y, NUM_FLICK_1);
-      lineFlickMark(gP4X, gP4Y, gD4X, gD4Y, NUM_FLICK_1);
-      lineFlickMark(gP5X, gP5Y, gD5X, gD5Y, NUM_FLICK_1);
+      lineFlickMark(xPX, xPY, xDX, xDY, numFlick1);
+      lineFlickMark(gP1X, gP1Y, gD1X, gD1Y, numFlick1);
+      lineFlickMark(gP2X, gP2Y, gD2X, gD2Y, numFlick1);
+      lineFlickMark(gP3X, gP3Y, gD3X, gD3Y, numFlick1);
+      lineFlickMark(gP4X, gP4Y, gD4X, gD4Y, numFlick1);
+      lineFlickMark(gP5X, gP5Y, gD5X, gD5Y, numFlick1);
 
-      lineFlickMark(gPM1X, gPM1Y, gDM1X, gDM1Y, NUM_FLICK_1);
-      lineFlickMark(gPM2X, gPM2Y, gDM2X, gDM2Y, NUM_FLICK_1);
-      lineFlickMark(gPM3X, gPM3Y, gDM3X, gDM3Y, NUM_FLICK_1);
-      lineFlickMark(gPM4X, gPM4Y, gDM4X, gDM4Y, NUM_FLICK_1);
-      lineFlickMark(gPM5X, gPM5Y, gDM5X, gDM5Y, NUM_FLICK_1);
+      lineFlickMark(gPM1X, gPM1Y, gDM1X, gDM1Y, numFlick1);
+      lineFlickMark(gPM2X, gPM2Y, gDM2X, gDM2Y, numFlick1);
+      lineFlickMark(gPM3X, gPM3Y, gDM3X, gDM3Y, numFlick1);
+      lineFlickMark(gPM4X, gPM4Y, gDM4X, gDM4Y, numFlick1);
+      lineFlickMark(gPM5X, gPM5Y, gDM5X, gDM5Y, numFlick1);
 
       strokeWeight(12);
       stroke('black'); 
